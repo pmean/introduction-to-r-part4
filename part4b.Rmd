@@ -5,19 +5,20 @@ date: "Sunday, August 14, 2016"
 output: html_document
 ---
 
-This program illustrates how to import and manipulate simple data sets in R and how to produce some simple descriptive statistics. Included in this program are some exercises for you to do on your own.
+This program is part of a series of R programs for the Introduction to R class. This program shows you how to convert a short and fat longitudinal data set to a tall and thin format.
 
-# Part 4b. Converting from short and fat to tall and thin
+```{r r-version-and-current-date}
+R.version.string
+Sys.Date()
+```
 
-Erase any stray data and load the data from part 2a.
+Erase any stray data.
 
 ```{r clean-house}
 rm(list=ls())
 ```
 
-Here is a data set on termite survival. It is probably a bit of a
-stretch to call this longitudinal data, but it still is useful
-for illustrating how to convert longitudinal data.
+Here is a data set on termite survival. It is probably a bit of a stretch to call this longitudinal data, but it still is useful for illustrating how to convert longitudinal data.
 
 The data is embedded in the description of the file. So you need to strip away the description from the data. It helps to import the data as entire lines, and you do this by specifying a separator character that is not
 found anywhere in the file.

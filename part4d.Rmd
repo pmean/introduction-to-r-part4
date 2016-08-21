@@ -5,7 +5,12 @@ date: "Sunday, August 14, 2016"
 output: html_document
 ---
 
-This program illustrates how to import and manipulate simple data sets in R and how to produce some simple descriptive statistics. Included in this program are some exercises for you to do on your own.
+This program is part of a series of R programs for the Introduction to R class. This program shows you how to convert a longitudinal data set from the tall and thin format to a short and fat format.
+
+```{r r-version-and-current-date}
+R.version.string
+Sys.Date()
+```
 
 # Part 4d. another reshape2 example
 
