@@ -114,5 +114,5 @@ That's a bit tedious, and a clever R programmer could find a way to use looping 
 ## Save all my work
 
 ```{r save-image}
-save.image("part4b.RData")
+save.image("part4.RData")
 ```

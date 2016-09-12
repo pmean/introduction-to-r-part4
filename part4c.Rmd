@@ -16,7 +16,7 @@ Erase any stray data and load the data from part 4b.
 
 ```{r read-part-4b-data}
 rm(list=ls())
-load(file="part4b.RData")
+load(file="part4.RData")
 ```
 
 The reshape2 library is very complex, but for what you need to do here today, you only need one function: melt.
@@ -115,5 +115,5 @@ tail(en)
 ## Save all my work
 
 ```{r save-image}
-save.image("part4c.RData")
+save.image("part4.RData")
 ```
