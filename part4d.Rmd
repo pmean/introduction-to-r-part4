@@ -110,19 +110,16 @@ tail(me3)
 
 ```{r chol-reshape-3}
 library("reshape2")
-ch1 <- melt(ch,id=c("patient","day","group"))
+ch1 <- spread(ch, day, cholest)
 head(ch1)
 tail(ch1)
-ch2 <- dcast(ch1,patient+group~variable+day)
-head(ch2)
-tail(ch2)
-cor(ch2[,c("cholest_2","cholest_4","cholest_14")])
+cor(ch1[,c("2","4","14")])
 ```
 
 Oops! The missing values hurt us here. Review the help file for cor.
 
 ```{r cholest-cor}
-cor(ch2[,c("cholest_2","cholest_4","cholest_14")],use="p")
+cor(ch1[,c("2","4","14")],use="p")
 ```
 
 ## A data set on back pain with two matched control groups

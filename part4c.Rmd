@@ -19,11 +19,11 @@ rm(list=ls())
 load(file="part4b.RData")
 ```
 
-The reshape2 library is very complex, but for what you need to do here today, you only need one function: melt.
+The tidyr library allows you to switch from short and fat to tall and thing using the gather function.
 
 ```{r faster-1}
-library("reshape2")
-teb <- melt(te,id.vars=c("dish","dose"))
+library("tidyr")
+teb <- gather(te, day, count.living, -dish, -dose)
 head(teb)
 tail(teb)
 ```
@@ -33,7 +33,7 @@ the day3 and day9 values which are character strings. You can fix this by
 droping those columns.
 
 ```{r faster-2}
-tec <- melt(te[,c(-5,-11)],id.vars=c("dish","dose"))
+tec <- gather(te[,c(-5,-11)], day, count.living, -dish, -dose)
 head(tec)
 tail(tec)
 ```
@@ -43,36 +43,32 @@ called "variable" and we need to keep only the fourth (and maybe fifth)
 characters.
 
 ```{r substr-1}
-substr(tec$variable,4,5)
+substr(tec$day,4,5)
 ```
 
 Almost. We need to convert from character to numeric.
 
 ```{r substr-2}
-tec$day <- as.numeric(substr(tec$variable,4,5))
+tec$day <- as.numeric(substr(tec$day,4,5))
 head(tec)
 tail(tec)
 ```
 
-I'm not too thrilled with the non-descriptive name, value, but
-I'm also too lazy here to change it or to drop the now unneeded
-column, variable.
-
 Now to plot the data.
 
 ```{r plot-termites}
-plot(tec$day,tec$value)
+plot(tec$day,tec$count.living)
 ```
 
 Let's connect the data for individual subjects.
 
 ```{r line-termites}
-plot(tec$day,tec$value)
+plot(tec$day,tec$count.living)
 for (i in 1:8) {
   sb <- tec$dish==i&tec$dose==5
-  lines(tec$day[sb],tec$value[sb],col="darkred")
+  lines(tec$day[sb],tec$count.living[sb],col="darkred")
   sb <- tec$dish==i&tec$dose==10
-  lines(tec$day[sb],tec$value[sb],col="darkgreen")
+  lines(tec$day[sb],tec$count.living[sb],col="darkgreen")
 }
 ```
 
@@ -99,9 +95,11 @@ qu
 
 Convert this to a tall and thin format. Draw boxplots.
 
+Suggestion: create an id variable with values 1:25 before you convert the format. It is not needed for the boxplots, but if you do anything more complex with this data, you need to know which data in the tall and thin format comes from the first rows of the original data set, from the second row, etc.
+
 ## A data set on energy consumption (short and fat format)
 
-This data set is described at
+Here's another interesting data set that you can work with. It comes in a short and fat format.
 
 --> http://www.statsci.org/data/general/energy.html
 
