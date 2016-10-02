@@ -14,10 +14,11 @@ Sys.Date()
 
 # Part 4d. another reshape2 example
 
-Erase any stray data. This part uses fresh data, so there's no need to load the data from the previous part.
+Erase any stray data.
 
 ```{r clean-up}
 rm(list=ls())
+load("part4.RData")
 ```
 
 ## Converting from tall and thin to short and fat
@@ -166,7 +167,7 @@ tail(st)
 Save everything
 
 ```{r save-everything}
-save.image("part4d.RData")
+save.image("part4.RData")
 ```
 
 ## There is no special assignment to be handed in today.
