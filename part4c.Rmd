@@ -19,7 +19,7 @@ rm(list=ls())
 load(file="part4.RData")
 ```
 
-The tidyr library allows you to switch from short and fat to tall and thing using the gather function.
+The tidyr library allows you to switch from short and fat to tall and thin using the gather function.
 
 ```{r faster-1}
 library("tidyr")
@@ -28,9 +28,7 @@ head(teb)
 tail(teb)
 ```
 
-It takes a bit of investigation, but the warning messages refer to
-the day3 and day9 values which are character strings. You can fix this by
-droping those columns.
+It takes a bit of investigation, but the warning messages refer to the day3 and day9 values which are character strings. You can fix this by droping those columns.
 
 ```{r faster-2}
 tec <- gather(te[,c(-5,-11)], day, count.living, -dish, -dose)
