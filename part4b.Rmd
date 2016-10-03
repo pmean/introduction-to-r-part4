@@ -44,7 +44,7 @@ want from the webpage and store the results in a text editor like
 notepad.
 
 ```{r read-termites-2}
-te <- read.table(file=fi,header=TRUE,comment="<")
+te <- read.table(file=fi, header=TRUE, comment="<")
 head(te)
 tail(te)
 summary(te)
@@ -95,6 +95,10 @@ sb12 <- te[,c("dish","dose","day12")]
 names(sb12)[3] <- "count.living"
 sb12$day <- 12
 
+sb13 <- te[,c("dish","dose","day13")]
+names(sb13)[3] <- "count.living"
+sb13$day <- 13
+
 sb14 <- te[,c("dish","dose","day14")]
 names(sb14)[3] <- "count.living"
 sb14$day <- 14
@@ -103,13 +107,13 @@ sb15 <- te[,c("dish","dose","day15")]
 names(sb15)[3] <- "count.living"
 sb15$day <- 15
 
-tea <- rbind(sb01,sb02,sb04,sb05,sb06,sb07,sb08,
-                 sb10,sb11,sb12,sb14,sb15)
+tea <- rbind(sb01, sb02, sb04, sb05, sb06, sb07, sb08,
+             sb10, sb11, sb12, sb13, sb14, sb15)
 head(tea)
 tail(tea)
 ```
 
-That's a bit tedious, and a clever R programmer could find a way to use looping structures like "for" to shorten the code. But there is a specialized library, reshape2, that makes things even easier.
+That's a bit tedious, and a clever R programmer could find a way to use looping structures like "for" to shorten the code. But there is a specialized library, tidyr, that makes things even easier.
 
 ## Save all my work
 
