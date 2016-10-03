@@ -13,7 +13,7 @@ Sys.Date()
 ```
 
 # Part 4d. another reshape2 example
-
+ 
 Erase any stray data.
 
 ```{r clean-up}
@@ -110,17 +110,17 @@ tail(me3)
 ```
 
 ```{r chol-reshape-3}
-library("reshape2")
+library("tidyr")
 ch1 <- spread(ch, day, cholest)
 head(ch1)
 tail(ch1)
-cor(ch1[,c("2","4","14")])
+cor(ch1[,c("2", "4", "14")])
 ```
 
 Oops! The missing values hurt us here. Review the help file for cor.
 
 ```{r cholest-cor}
-cor(ch1[,c("2","4","14")],use="p")
+cor(ch1[,c("2", "4", "14")],use="complete")
 ```
 
 ## A data set on back pain with two matched control groups

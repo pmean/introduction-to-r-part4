@@ -20,7 +20,7 @@ I'm going to use the term "longitudinal" data to designate data sets where a pat
 
 Don't worry about the technical distinctions among these terms. The important thing to know for now is that longitudinal data represents one of the biggest challenges in data management and we will spend most of this section discussing these challenges.
 
-Longitudinal data usually come in of two specific formats. The first is the short and fat format and the second is the tall and thin format. Open these two webpages in Internet explorer to see the difference. 
+Longitudinal data usually come in one of two specific formats. The first is the short and fat format and the second is the tall and thin format. Open these two webpages in Internet explorer to see the difference. 
 
 --> http://www.statsci.org/data/oz/ctsibrm.txt
 

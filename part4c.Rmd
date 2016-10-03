@@ -14,7 +14,7 @@ Sys.Date()
 
 Erase any stray data and load the data from part 4b.
 
-```{r read-part-4b-data}
+```{r read-part-4-data}
 rm(list=ls())
 load(file="part4.RData")
 ```

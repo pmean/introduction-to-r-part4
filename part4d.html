@@ -126,11 +126,12 @@ $(document).ready(function () {
 <pre class="r"><code>R.version.string</code></pre>
 <pre><code>## [1] &quot;R version 3.3.1 (2016-06-21)&quot;</code></pre>
 <pre class="r"><code>Sys.Date()</code></pre>
-<pre><code>## [1] &quot;2016-08-21&quot;</code></pre>
+<pre><code>## [1] &quot;2016-10-02&quot;</code></pre>
 <div id="part-4d.-another-reshape2-example" class="section level1">
 <h1>Part 4d. another reshape2 example</h1>
-<p>Erase any stray data. This part uses fresh data, so there’s no need to load the data from the previous part.</p>
-<pre class="r"><code>rm(list=ls())</code></pre>
+<p>Erase any stray data.</p>
+<pre class="r"><code>rm(list=ls())
+load(&quot;part4.RData&quot;)</code></pre>
 <div id="converting-from-tall-and-thin-to-short-and-fat" class="section level2">
 <h2>Converting from tall and thin to short and fat</h2>
 <p>Now let’s read in a tall and thin format and convert it to a short and wide format.</p>
@@ -355,52 +356,35 @@ head(me3)</code></pre>
 ## 56      56        NA        NA        NA       170
 ## 57      57        NA        NA        NA       200
 ## 58      58        NA        NA        NA       176</code></pre>
-<pre class="r"><code>library(&quot;reshape2&quot;)
-ch1 &lt;- melt(ch,id=c(&quot;patient&quot;,&quot;day&quot;,&quot;group&quot;))
+<pre class="r"><code>library(&quot;tidyr&quot;)
+ch1 &lt;- spread(ch, day, cholest)
 head(ch1)</code></pre>
-<pre><code>##   patient day group variable value
-## 1       1   2     1  cholest   270
-## 2       2   2     1  cholest   236
-## 3       3   2     1  cholest   210
-## 4       4   2     1  cholest   142
-## 5       5   2     1  cholest   280
-## 6       6   2     1  cholest   272</code></pre>
+<pre><code>##   patient group   2   4  14 99
+## 1       1     1 270 218 156 NA
+## 2       2     1 236 234  NA NA
+## 3       3     1 210 214 242 NA
+## 4       4     1 142 116  NA NA
+## 5       5     1 280 200  NA NA
+## 6       6     1 272 276 256 NA</code></pre>
 <pre class="r"><code>tail(ch1)</code></pre>
-<pre><code>##     patient day group variable value
-## 109      53  99     2  cholest   162
-## 110      54  99     2  cholest   182
-## 111      55  99     2  cholest   218
-## 112      56  99     2  cholest   170
-## 113      57  99     2  cholest   200
-## 114      58  99     2  cholest   176</code></pre>
-<pre class="r"><code>ch2 &lt;- dcast(ch1,patient+group~variable+day)
-head(ch2)</code></pre>
-<pre><code>##   patient group cholest_2 cholest_4 cholest_14 cholest_99
-## 1       1     1       270       218        156         NA
-## 2       2     1       236       234         NA         NA
-## 3       3     1       210       214        242         NA
-## 4       4     1       142       116         NA         NA
-## 5       5     1       280       200         NA         NA
-## 6       6     1       272       276        256         NA</code></pre>
-<pre class="r"><code>tail(ch2)</code></pre>
-<pre><code>##    patient group cholest_2 cholest_4 cholest_14 cholest_99
-## 53      53     2        NA        NA         NA        162
-## 54      54     2        NA        NA         NA        182
-## 55      55     2        NA        NA         NA        218
-## 56      56     2        NA        NA         NA        170
-## 57      57     2        NA        NA         NA        200
-## 58      58     2        NA        NA         NA        176</code></pre>
-<pre class="r"><code>cor(ch2[,c(&quot;cholest_2&quot;,&quot;cholest_4&quot;,&quot;cholest_14&quot;)])</code></pre>
-<pre><code>##            cholest_2 cholest_4 cholest_14
-## cholest_2          1        NA         NA
-## cholest_4         NA         1         NA
-## cholest_14        NA        NA          1</code></pre>
+<pre><code>##    patient group  2  4 14  99
+## 53      53     2 NA NA NA 162
+## 54      54     2 NA NA NA 182
+## 55      55     2 NA NA NA 218
+## 56      56     2 NA NA NA 170
+## 57      57     2 NA NA NA 200
+## 58      58     2 NA NA NA 176</code></pre>
+<pre class="r"><code>cor(ch1[,c(&quot;2&quot;, &quot;4&quot;, &quot;14&quot;)])</code></pre>
+<pre><code>##     2  4 14
+## 2   1 NA NA
+## 4  NA  1 NA
+## 14 NA NA  1</code></pre>
 <p>Oops! The missing values hurt us here. Review the help file for cor.</p>
-<pre class="r"><code>cor(ch2[,c(&quot;cholest_2&quot;,&quot;cholest_4&quot;,&quot;cholest_14&quot;)],use=&quot;p&quot;)</code></pre>
-<pre><code>##            cholest_2 cholest_4 cholest_14
-## cholest_2  1.0000000 0.6731814  0.3927710
-## cholest_4  0.6731814 1.0000000  0.7120277
-## cholest_14 0.3927710 0.7120277  1.0000000</code></pre>
+<pre class="r"><code>cor(ch1[,c(&quot;2&quot;, &quot;4&quot;, &quot;14&quot;)],use=&quot;complete&quot;)</code></pre>
+<pre><code>##            2         4        14
+## 2  1.0000000 0.6888112 0.3927710
+## 4  0.6888112 1.0000000 0.7120277
+## 14 0.3927710 0.7120277 1.0000000</code></pre>
 </div>
 <div id="a-data-set-on-back-pain-with-two-matched-control-groups" class="section level2">
 <h2>A data set on back pain with two matched control groups</h2>
@@ -439,7 +423,7 @@ st &lt;- read.table(fi,header=TRUE)
 head(st)
 tail(st)</code></pre>
 <p>Save everything</p>
-<pre class="r"><code>save.image(&quot;part4d.RData&quot;)</code></pre>
+<pre class="r"><code>save.image(&quot;part4.RData&quot;)</code></pre>
 </div>
 <div id="there-is-no-special-assignment-to-be-handed-in-today." class="section level2">
 <h2>There is no special assignment to be handed in today.</h2>
