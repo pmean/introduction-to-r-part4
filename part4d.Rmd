@@ -128,8 +128,7 @@ cor(ch1[,c("2", "4", "14")],use="complete")
 This data set is described in
 --> http://www.statsci.org/data/oz/backpain.html
 
-Subjexts were matched by age, height, and weight. How well were they 
-matched?
+Subjects were matched by age, height, and weight. How well were they matched?
 
 ```{r read-match}
 fn <- "http://www.statsci.org/data/oz/backpain.txt"
